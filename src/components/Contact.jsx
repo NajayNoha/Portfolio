@@ -16,9 +16,35 @@ const Contact = () => {
   });
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {};
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  };
 
-  const handleSubmit = (e) => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    emailjs.send("service", "template", {
+      from_name: form.name,
+      to_name: "Nohayla Najay",
+      from_email: form.email,
+      to_email: "najaynohayla@gmail.com",
+      message: form.message,
+    }, 'public_id').then(()=>{
+      setLoading(false);
+      alert('Thank You I will get back to you as soon as possible.');
+      setForm({
+        name: "",
+        email: "",
+        message: "",
+      })
+    }, (error)=>{
+      setLoading(false)
+      console.log(error);
+      alert('Some thing went wrong!');
+    });
+  };
 
   return (
     <div className="xl:mt-12 xl:flex-row flex-col-reverse flex gap-14 overflow-hidden justify-evenly ">
@@ -46,7 +72,7 @@ const Contact = () => {
             />
           </label>
           <label className="flex flex-col">
-            <span className="text-white font-meduim mb-4 ">Your Name</span>
+            <span className="text-white font-meduim mb-4 ">Your Email</span>
             <input
               type="email"
               name="email"
@@ -57,7 +83,7 @@ const Contact = () => {
             />
           </label>
           <label className="flex flex-col">
-            <span className="text-white font-meduim mb-4 ">Your Name</span>
+            <span className="text-white font-meduim mb-4 ">Your Message</span>
             <textarea
               rows="7"
               name="message"
@@ -68,11 +94,11 @@ const Contact = () => {
             />
           </label>
 
-          <button 
+          <button
             type="submit"
             className="bg-tertiary py-3 px-8 outline-none w-fit text-white font-bold shadow-md shadow-primary rounded-xl"
           >
-            { loading ? 'sending...' : 'send'}
+            {loading ? "sending..." : "send"}
           </button>
         </form>
       </motion.div>
