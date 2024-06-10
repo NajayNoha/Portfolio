@@ -25,13 +25,13 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
 
-    emailjs.send("service", "template", {
+    emailjs.send("service_iay9uux", "template_i39fv1c", {
       from_name: form.name,
       to_name: "Nohayla Najay",
       from_email: form.email,
       to_email: "najaynohayla@gmail.com",
       message: form.message,
-    }, 'public_id').then(()=>{
+    }, 'y7U_rrvhAIQiUB47b').then(()=>{
       setLoading(false);
       alert('Thank You I will get back to you as soon as possible.');
       setForm({
